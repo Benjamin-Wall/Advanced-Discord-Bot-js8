@@ -1,0 +1,29 @@
+{
+  "name": "musicmanv2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Wall",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.2.0",
+    "colors": "^1.1.2",
+    "dankmemes": "^1.0.0",
+    "discord.js": "^11.2.1",
+    "find-youtube-urls": "0.0.2",
+    "get-json": "^1.0.0",
+    "google-images": "^2.1.0",
+    "ms": "^2.0.0",
+    "opusscript": "0.0.3",
+    "path": "^0.12.7",
+    "random-url": "^1.0.0",
+    "shuffle-array": "^1.0.1",
+    "sleep-ms": "^2.0.1",
+    "steam-totp": "^2.0.1",
+    "youtube-dl": "^1.12.2",
+    "ytdl-core": "^0.17.1"
+  }
+}

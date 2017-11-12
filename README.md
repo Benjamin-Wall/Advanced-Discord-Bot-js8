@@ -6,7 +6,7 @@ a discord.js bot, I made this so new users can also look at the methods used for
 ## Getting Started
 
 * You will need [FFmpeg](https://www.ffmpeg.org/) for the play, stop and skip commands, as ytdl-core package needs ffmpeg or it will not work.
-* Make a folder and git clone this repository: https://github.com/MrWall112/Advanced-Dicsord-Bot.git
+* Make a folder and git clone this repository: https://github.com/MrWall112/Advanced-Discord-Bot-js8.git
 * Then type "npm install" to get the needed packages for the bot
 * in The Examples folder, the ConfigSammy, ConfigJack and ConfigBen, are not needed, i use the files and steam totp to get my 2FA Code for each account
 

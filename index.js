@@ -7,6 +7,7 @@ var getJSON         = require('get-json');
 const Discord       = require('discord.js');
 const SteamTotp     = require('steam-totp');
 const GoogleImages  = require('google-images');
+const mysql         = require('mysql');
 
 const configS       = require('./settingsConfig/ConfigSammy.json');
 const configJ       = require('./settingsConfig/ConfigJack.json');
@@ -19,6 +20,14 @@ require('console-stamp')(console, '[HH:MM:ss]');
 
 const TOKEN = file.TOKEN;
 const GreenStyle = chalk.green;
+
+function generateXp() {
+  let min = 2;
+  let max = 20;
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+
+}
 
 function play(connection, message){
     var server = servers[message.guild.id];
@@ -131,9 +140,58 @@ bot.on("ready", async () => {
 
 });
 
+var con = mysql.createConnection({
+  host: file.SQL_host,
+  user: file.SQL_user,
+  port: file.SQL_port,
+  password: file.SQL_password,
+  database: file.SQL_database
+
+});
+
+con.connect(err => {
+  if(err) throw err;
+  console.log("Connected to database!");
+
+});
+
 bot.on("message", async message => {
 
+  con.query(`SELECT * FROM xp WHERE id = '${message.author.id}'`, (err, rows) => {
+    if(err) throw err;
+
+    let sql;
+
+    if(rows.length < 1){
+      sql = `INSERT INTO xp (id, xp) VALUES ('${message.author.id}', ${generateXp()})`
+    } else{
+      let xp = rows[0].xp;
+      sql = `UPDATE xp SET xp = ${xp + generateXp()} WHERE id = '${message.author.id}'`;
+    }
+
+    con.query(sql);
+  });
+
+  con.query(`SELECT * FROM messagecount WHERE id = '${message.author.id}'`, (err, rows) => {
+    if(err) throw err;
+
+    let sql;
+
+    if(rows.length < 1){
+      sql = `INSERT INTO messagecount (id, msgCnt) VALUES ('${message.author.id}', 1)` 
+    }else{
+      let msgcount = rows[0].msgCnt;
+      sql = `UPDATE messagecount SET msgCnt = ${msgcount + 1} WHERE id = '${message.author.id}'`;
+    }
+
+    con.query(sql)
+  });
+
   var prefix = (file.prefix[message.guild.id] == undefined) ? file.prefix["default"] : file.prefix[message.guild.id];
+
+  if(message.content.indexOf(file.BOT_ID) >= 0) {
+    message.channel.send("The Preifx For this Server Is: " + prefix);
+  }
 
   if(!message.content.startsWith(prefix)) return;
   if(message.author.bot) return;
@@ -143,8 +201,8 @@ bot.on("message", async message => {
   let args = messageArray.slice(1);
   var args1 = message.content.substring(prefix.length).split(" ");
 
-  let cmd = bot.commands.get(command.slice(prefix.length));
-  if(cmd) cmd.run(bot, message, args, prefix);
+  let cmd = bot.commands.get(command.slice(prefix.length).toLowerCase());
+  if(cmd) cmd.run(bot, message, args, prefix, con);
 
   switch(args1[0].toLowerCase()) {
 
@@ -321,7 +379,6 @@ bot.on("message", async message => {
           }
             server.dispatcher.end();
             NOW_PLAYING = "Nothing";
-            //console.log("[" + new Date().toLocaleString() + "] Stopped the queue.");
         }
           break;
 
@@ -340,9 +397,6 @@ bot.on("message", async message => {
           }
 
           break;
-
-
-
   }
 });
 

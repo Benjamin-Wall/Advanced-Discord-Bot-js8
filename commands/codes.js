@@ -2,6 +2,7 @@ var settings = '../settingsConfig/settings.json';
 var file = module.require(settings)
 const SteamTotp = module.require('steam-totp');
 const Discord = module.require('discord.js');
+const ms = require('ms');
 
 const configS = module.require('../settingsConfig/ConfigSammy.json');
 const configJ = module.require('../settingsConfig/ConfigJack.json');
@@ -18,7 +19,16 @@ module.exports.run = async (bot, message, args) => {
             .addField("__**Sammys Code:**__", SammyCode)
             .setColor(0x00FF00)
 
-            message.channel.send({embed: codess});
+            if(message.author.id === "103509994074312704" || message.author.id === "366979278237204491") {
+                message.channel.send({embed: codess});
+              }else{
+                message.channel.send("You need to ben or sammy");
+              }
+        
+            setTimeout(function(){
+                message.channel.fetchMessages({limit: 2}).then(messages => message.channel.bulkDelete(messages, true));
+    
+            }, ms("10s"));
 }
 
 module.exports.help = {

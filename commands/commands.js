@@ -45,6 +45,9 @@ module.exports.run = async (bot, message, args, prefix) => {
                                        "Type " + "__**" + prefix + "roles**__ to see all the roles in the server \n" +
                                        "Type " + "__**" + prefix + "help**__ to show the main help page \n" +
                                        "Type " + "__**" + prefix + "commands**__ to see all the commands for this bot in the server \n" +
+                                       "Type " + "__**" + prefix + "xp**__ to see you or the mentioned persons total XP \n" +
+                                       "Type " + "__**" + prefix + "avatar**__ to see you or the mentioned persons avatar \n" +
+                                       "Type " + "__**" + prefix + "messages**__ to see you or the mentioned persons message count \n" +
                                        "----------------------------------------------------------------------------------------------\n", true)
 
           .setColor("0x00FF00")

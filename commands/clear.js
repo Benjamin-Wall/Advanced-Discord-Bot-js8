@@ -1,9 +1,5 @@
 module.exports.run = async (bot, message, args) => {
 
-//console.log(args[0]);// user
-//console.log(args[1]);// role
-//console.log(args[2]);//time
-
 if(message.member.hasPermission("ADMINISTRATOR")) {
   let messagecount = parseInt(args[0]);
 

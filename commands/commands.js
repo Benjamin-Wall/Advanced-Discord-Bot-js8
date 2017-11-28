@@ -48,6 +48,7 @@ module.exports.run = async (bot, message, args, prefix) => {
                                        "Type " + "__**" + prefix + "xp**__ to see you or the mentioned persons total XP \n" +
                                        "Type " + "__**" + prefix + "avatar**__ to see you or the mentioned persons avatar \n" +
                                        "Type " + "__**" + prefix + "messages**__ to see you or the mentioned persons message count \n" +
+                                       "Type " + "__**" + prefix + "dadjoke**__ to randomly get a awful dad joke\n" +
                                        "----------------------------------------------------------------------------------------------\n", true)
 
           .setColor("0x00FF00")

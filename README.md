@@ -15,27 +15,47 @@ a discord.js bot, I made this so new users can also look at the methods used for
 NOTE: ignore the [ ] that just shows what should be there when entering the command
 
 ```
-speak [ANYTIHNG] - This will Make it look like the bot said whatever is put inside the []
+ping - to get a simple pong response
+memes - This gets a random meme from Reddit, but there is alot of duplicates
+images [SEARCH TERM] - This gets a random image everytime based upon the search results
+codes - gets my steam authenticator codes you can get your if you know how to
+userinfo [@NAME] - This shows the authors profile info, it will also show the mentioned persons info
+float [INSPECT URL] - This gets the float for the given inspect link
+invite - this is a basic embed made that shows the user the Perm invite i made then put in the code
+timer [1s/1m/1h] - To start a timer for the given amount of time
 coin - This will flip a coin that can either get heads or tales
 8ball [QUESTION] - This will get a random answer for the question asked
 embed - to show an example embed used for testing the positioning of the text
-highlight [ANYTHING] This will make it look like the bot said whatever is in the []
-timer [1s/1m/1h] - To start a timer for the given amount of time
-invite - this is a basic embed made that shows the user the Perm invite i made then put in the code
 notice - This is a basic command that shows how to reply to the person who used the command
-play [YOUTUBE URL] - This can play a YouTube song, only 1 at a time
-skip - This skips the current song and plays the next one
-stop - This stops the currently playing song and disconnects the bot from the channel
-userinfo [@NAME] - This shows the authors profile info, it will also show the mentioned persons info
-images [SEARCH TERM] - This gets a random image everytime based upon the search results
-memes - This gets a random meme from Reddit, but there is alot of duplicates
-float [INSPECT URL] - This gets the float for the given inspect link
-playlist [YOUTUBE URL ID] - Adds all the songs from the playlist to the queue
-np - To get the currently playing song
-pause - To pause the currently playing song
-resume - To resume the currently paused song
+highlight [ANYTHING] This will make it look like the bot said
+speak [ANYTIHNG] - This will Make it look like the bot said 
+crosshair - a simple embed that i put my CS:GO crosshair settings into
+test - this shows an example embed that shows collums vertically
+commands - this will show all the available commands to use for the bot
+rules - this shows the rules of the server
+roles - shows the roles of the server
+viewmodel - a simple embed that i put my CS:GO viewmodel settings into
+help - this will show help from the bot
 fortnite [USERNAME] [pc/xbl/psn] - to get fortnite stats of the requested player
 csgo [STEAMID64/CUSTOM STEAM URL] - to get certain csgo stats of the requested player
+avatar [MENTION] - gets the profile pic of the mentioned person if noone is mentiond it gets the authors
+xp [@NAME] - this shows the users current XP ammount or the authors if not mentioned
+messages [@NAME] - this shows the users current messages sent or the authors if not mentioned
+dadjoke - get a random awful dad joke that will make you cringe
+```
+
+## Inside Index.js Commands:
+
+NOTE: ignore the [ ] that just shows what should be there when entering the command
+
+```
+play [YOUTUBE URL] - This adds and plays the youtube video in discord
+playlist [YOUTUBE URL] - This plays a youtube playlist in discord
+prefix [NEW PREFIX] - This changes the prefix for the server
+np - This shows the currently playing song
+stop - This instantly stops and disconnects the bot
+fuckoff - This instantly stops and disconnects the bot
+skip - this skips the currently playing song
 ```
 
 ## Admin Commands:
@@ -43,13 +63,12 @@ csgo [STEAMID64/CUSTOM STEAM URL] - to get certain csgo stats of the requested p
 NOTE: ignore the [ ] that just shows what should be there when entering the command
 
 ```
-dev - This is just a simple reply to the user
-prefix [NEW PREFIX] - This can change the bots prefix (locally)
-rename [NAME] - This renames the bot to whatever "name" is
-clear [NUMBER] - This purge deletes any amount of number of messages in a text channel
 addrole [@NAME] [ROLE] [LENGTH] - This adds the role of the mentioned person for certain time
 removerole [@NAME] [ROLE] - This removes the role mentioned from the person mentioned
+dev - This is just a simple reply to the user
+rename [NAME] - This renames the bot to whatever "name" is
 kick [@NAME] - To kick the mentioned user from the server.
+clear [NUMBER] - This purge deletes any amount of number of messages in a text channel
 ```
 
 ## TO DO:

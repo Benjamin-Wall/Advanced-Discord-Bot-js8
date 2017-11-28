@@ -35,7 +35,7 @@ module.exports.run = async (bot, message, args) => {
   
               var KD = getStatData(0, $);
               if(KD == -1){
-                message.channel.send("Invalid User");
+                message.channel.send("Invalid, make sure your profile is not private and you have entered a valid STEAMID64 or Custom URL!");
                 return;
               }
 

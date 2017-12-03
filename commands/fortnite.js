@@ -12,15 +12,19 @@ module.exports.run = async (bot, message, args) => {
                        "Account Username: " + "__**" + data.info.username + "**__" + "\n" +
                        "Account Platform: " + "__**" + data.info.platform + "**__" + "\n" +
                        "------------------------------------\n" +
-                       "Total Kills: " + "__**" + data.lifetimeStats[10].value + "**__" + "\n" +
-                       "Total Wins: " + "__**" + data.lifetimeStats[7].value + "**__" + "\n" +
-                       "Total Top 3: " + "__**" + data.lifetimeStats[2].value + "**__" + "\n" +
-                       "Total Top 5: " + "__**" + data.lifetimeStats[1].value + "**__" + "\n" +
-                       "Total Top 6: " + "__**" + data.lifetimeStats[3].value + "**__" + "\n" +
-                       "Total Top 10: " + "__**" + data.lifetimeStats[0].value + "**__" + "\n" +
-                       "Total Top 12: " + "__**" + data.lifetimeStats[4].value + "**__" + "\n" +
-                       "Total Top 25: " + "__**" + data.lifetimeStats[5].value + "**__" + "\n" +
-                       "Total Matches Played: " + "__**" + data.lifetimeStats[6].value + "**__" + "\n" +
+                       data.lifetimeStats[0].stat + ": " + "__**" + data.lifetimeStats[0].value + "**__" + "\n" +
+                       data.lifetimeStats[1].stat + ": " + "__**" + data.lifetimeStats[1].value + "**__" + "\n" +
+                       data.lifetimeStats[2].stat + ": " + "__**" + data.lifetimeStats[2].value + "**__" + "\n" +
+                       data.lifetimeStats[3].stat + ": " + "__**" + data.lifetimeStats[3].value + "**__" + "\n" +
+                       data.lifetimeStats[4].stat + ": " + "__**" + data.lifetimeStats[4].value + "**__" + "\n" +
+                       data.lifetimeStats[5].stat + ": " + "__**" + data.lifetimeStats[5].value + "**__" + "\n" +
+                       data.lifetimeStats[6].stat + ": " + "__**" + data.lifetimeStats[6].value + "**__" + "\n" +
+                       data.lifetimeStats[7].stat + ": " + "__**" + data.lifetimeStats[7].value + "**__" + "\n" +
+                       data.lifetimeStats[8].stat + ": " + "__**" + data.lifetimeStats[8].value + "**__" + "\n" +
+                       data.lifetimeStats[9].stat + ": " + "__**" + data.lifetimeStats[9].value + "**__" + "\n" +
+                       data.lifetimeStats[10].stat + ": " + "__**" + data.lifetimeStats[10].value + "**__" + "\n" +
+                       data.lifetimeStats[11].stat + ": " + "__**" + data.lifetimeStats[11].value + "**__" + "\n" +
+                       data.lifetimeStats[12].stat + ": " + "__**" + data.lifetimeStats[12].value + "**__" + "\n" +
                        "------------------------------------\n", true)
 
     .setColor("0x#FF0000")

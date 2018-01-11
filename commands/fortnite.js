@@ -4,10 +4,6 @@ var request = require('request');
 
 module.exports.run = async (bot, message, args, prefix, con, file) => {
 
-//console.log(args[0]);// username
-//console.log(args[1]);// platform
-
-
   var headers = {
     'TRN-Api-Key': file.FORTNITE_API_KEY
   }
@@ -81,7 +77,6 @@ module.exports.run = async (bot, message, args, prefix, con, file) => {
                          "Kills per game: " + info.stats.p9.kpg.value + "\n" +
                          "Matches Played: " + info.stats.p9.matches.value + "\n" + "```")
 })
-
 }
 
 module.exports.help = {

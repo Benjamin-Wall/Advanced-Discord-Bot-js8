@@ -16,8 +16,6 @@ const configB       = require('./settingsConfig/ConfigBen.json');
 var settings        = './settingsConfig/settings.json';
 var file = require(settings)
 
-require('console-stamp')(console, '[HH:MM:ss]');
-
 const TOKEN = file.TOKEN;
 const GreenStyle = chalk.green;
 
@@ -193,6 +191,39 @@ bot.on("message", async message => {
     message.channel.send("The Preifx For this Server Is: " + prefix);
   }
 
+  if(message.content.toLowerCase().indexOf("dab") >= 0){
+    message.channel.send({files: [
+      {
+        attachment: 'images/DAB.jpeg',
+        name: "DAB.jpeg"
+      }
+    ]});
+  }
+  if(message.content.toLowerCase().indexOf("ree") >= 0){
+    message.channel.send({files: [
+      {
+        attachment: 'images/REE.gif',
+        name: "REE.gif"
+      }
+    ]});
+  }
+  if(message.content.toLowerCase().indexOf("??") >= 0){
+    message.channel.send({files: [
+      {
+        attachment: 'images/WHAT.png',
+        name: "WHAT.PNG"
+      }
+    ]});
+  }
+  if(message.content.toLowerCase().indexOf("oof") >= 0){
+    message.channel.send({files: [
+      {
+        attachment: 'images/OOF.png',
+        name: "OOF.png"
+      }
+    ]});
+  }
+
   if(!message.content.startsWith(prefix)) return;
   if(message.author.bot) return;
 
@@ -202,7 +233,7 @@ bot.on("message", async message => {
   var args1 = message.content.substring(prefix.length).split(" ");
 
   let cmd = bot.commands.get(command.slice(prefix.length).toLowerCase());
-  if(cmd) cmd.run(bot, message, args, prefix, con);
+  if(cmd) cmd.run(bot, message, args, prefix, con, file);
 
   switch(args1[0].toLowerCase()) {
 

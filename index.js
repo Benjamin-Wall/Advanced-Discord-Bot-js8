@@ -14,7 +14,7 @@ const configJ       = require('./settingsConfig/ConfigJack.json');
 const configB       = require('./settingsConfig/ConfigBen.json');
 
 var settings        = './settingsConfig/settings.json';
-var file = require(settings)
+var file            = require(settings)
 
 const TOKEN = file.TOKEN;
 const GreenStyle = chalk.green;
@@ -120,7 +120,7 @@ fs.readdir("./commands/", (err, files) => {
 })
 
 bot.on("guildMemberAdd", function(member) {
-  member.guild.channels.find("name", "general").send(member.toString() + " Welcome To The Comp Crew Official Server");
+  member.guild.channels.find("name", "general").send(member.toString() + ` Welcome to ${member.guild.name}`);
 
   member.addRole(member.guild.roles.find("name", "Members")).then(() => {
     console.log(`${message.author.username}` + " joined and has been given The Member Role");
@@ -220,6 +220,14 @@ bot.on("message", async message => {
       {
         attachment: 'images/OOF.png',
         name: "OOF.png"
+      }
+    ]});
+  }
+  if(message.content.toLowerCase().indexOf("yeet") >= 0){
+    message.channel.send({files: [
+      {
+        attachment: 'images/YEET.png',
+        name: "YEET.png"
       }
     ]});
   }

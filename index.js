@@ -27,6 +27,33 @@ function generateXp() {
 
 }
 
+function getDateTime(channel) {
+
+  var date = new Date();
+
+  var hour = date.getHours();
+  hour = (hour < 10 ? "0" : "") + hour;
+
+  var min  = date.getMinutes();
+  min = (min < 10 ? "0" : "") + min;
+
+  var sec  = date.getSeconds();
+  sec = (sec < 10 ? "0" : "") + sec;
+
+  var year = date.getFullYear();
+
+  var month = date.getMonth() + 1;
+  month = (month < 10 ? "0" : "") + month;
+
+  var day  = date.getDate();
+  day = (day < 10 ? "0" : "") + day;
+
+  var Total_Time = day + "/" + month + "/" + year + " - " + hour + ":" + min + ":" + sec;
+
+  return Total_Time;
+  
+  }
+
 function play(connection, message){
     var server = servers[message.guild.id];
 
@@ -123,8 +150,13 @@ bot.on("guildMemberAdd", function(member) {
   member.guild.channels.find("name", "general").send(member.toString() + ` Welcome to ${member.guild.name}`);
 
   member.addRole(member.guild.roles.find("name", "Members")).then(() => {
-    console.log(`${message.author.username}` + " joined and has been given The Member Role");
+    console.log("joined and has been given The Member Role");
   })
+});
+
+bot.on("guildMemberRemove", function(member){
+  member.guild.channels.find("name", "general").send(`Goodbye!` + member.toString());
+
 });
 
 bot.on("ready", async () => {
@@ -136,6 +168,13 @@ bot.on("ready", async () => {
   console.log(GreenStyle("Logging Woll Now Start...               "));
   console.log(GreenStyle("----------------------------------------"));
 
+  var channel = bot.channels.get("353164129021984778");
+
+  var ONLINE = new Discord.RichEmbed()
+      .addField("Online: ", getDateTime(),true)
+      .setColor("0x#00ff00")
+  
+  channel.send(ONLINE);
 });
 
 var con = mysql.createConnection({

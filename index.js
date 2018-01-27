@@ -27,7 +27,11 @@ function generateXp() {
 
 }
 
-function getDateTime(channel) {
+function GenerateHex(){
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+}
+
+function getDateTime() {
 
   var date = new Date();
 
@@ -172,7 +176,7 @@ bot.on("ready", async () => {
 
   var ONLINE = new Discord.RichEmbed()
       .addField("Online: ", getDateTime(),true)
-      .setColor("0x#00ff00")
+      .setColor(GenerateHex());
   
   channel.send(ONLINE);
 });
@@ -188,11 +192,18 @@ var con = mysql.createConnection({
 
 con.connect(err => {
   if(err) throw err;
-  console.log("Connected to database!");
-
+  console.log(GreenStyle("Connected to database!"));
+  
 });
 
 bot.on("message", async message => {
+
+  var timer = setInterval(function () { 
+    var TET = message.guild.roles.find("name", "Owner").setColor(GenerateHex()); //REPLACE OWNER WITH ROLE NAME
+    var TET_1 = message.guild.roles.find("name", "ADMIN").setColor(GenerateHex()); //REPLACE/DELETE THIS LINE
+}, 2000);
+
+  if(message.author.bot) return;
 
   con.query(`SELECT * FROM xp WHERE id = '${message.author.id}'`, (err, rows) => {
     if(err) throw err;
@@ -270,10 +281,17 @@ bot.on("message", async message => {
       }
     ]});
   }
+  if(message.content.toLowerCase().indexOf("i mean") >= 0){
+    message.channel.send({files: [
+      {
+        attachment: 'images/MEAN.png',
+        name: "MEAN.png"
+      }
+    ]});
+  }
 
   if(!message.content.startsWith(prefix)) return;
-  if(message.author.bot) return;
-
+  
   let messageArray = message.content.split(" ");
   let command = messageArray[0];
   let args = messageArray.slice(1);

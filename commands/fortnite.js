@@ -1,39 +1,59 @@
 const Discord = module.require('discord.js');
 var fortnite = require('fortnite');
+var request = require('request');
 
-module.exports.run = async (bot, message, args) => {
+module.exports.run = async (bot, message, args, prefix, con, file) => {
 
-  fortnite(args[0], args[1]).then((data) => {
-    var STAT = new Discord.RichEmbed()
-    .setTitle("__***Fortnite Stats***__")
-    .setURL(data.info.url)
+  var headers = {
+    'TRN-Api-Key': file.FORTNITE_API_KEY
+  }
 
-    .addField("------------------------------------",
-                       "Account Username: " + "__**" + data.info.username + "**__" + "\n" +
-                       "Account Platform: " + "__**" + data.info.platform + "**__" + "\n" +
-                       "------------------------------------\n" +
-                       data.lifetimeStats[0].stat + ": " + "__**" + data.lifetimeStats[0].value + "**__" + "\n" +
-                       data.lifetimeStats[1].stat + ": " + "__**" + data.lifetimeStats[1].value + "**__" + "\n" +
-                       data.lifetimeStats[2].stat + ": " + "__**" + data.lifetimeStats[2].value + "**__" + "\n" +
-                       data.lifetimeStats[3].stat + ": " + "__**" + data.lifetimeStats[3].value + "**__" + "\n" +
-                       data.lifetimeStats[4].stat + ": " + "__**" + data.lifetimeStats[4].value + "**__" + "\n" +
-                       data.lifetimeStats[5].stat + ": " + "__**" + data.lifetimeStats[5].value + "**__" + "\n" +
-                       data.lifetimeStats[6].stat + ": " + "__**" + data.lifetimeStats[6].value + "**__" + "\n" +
-                       data.lifetimeStats[7].stat + ": " + "__**" + data.lifetimeStats[7].value + "**__" + "\n" +
-                       data.lifetimeStats[8].stat + ": " + "__**" + data.lifetimeStats[8].value + "**__" + "\n" +
-                       data.lifetimeStats[9].stat + ": " + "__**" + data.lifetimeStats[9].value + "**__" + "\n" +
-                       data.lifetimeStats[10].stat + ": " + "__**" + data.lifetimeStats[10].value + "**__" + "\n" +
-                       data.lifetimeStats[11].stat + ": " + "__**" + data.lifetimeStats[11].value + "**__" + "\n" +
-                       data.lifetimeStats[12].stat + ": " + "__**" + data.lifetimeStats[12].value + "**__" + "\n" +
-                       "------------------------------------\n", true)
+  var options = {
+    url: `https://api.fortnitetracker.com/v1/profile/` + `pc` + "/" + `${args[0]}`,
+    method: 'GET',
+    headers: headers
+  }
 
-    .setColor("0x#FF0000")
+  request(options, function (error, response, body) {
+    var info = JSON.parse(body);
 
-    message.channel.send(STAT);
+    var LifeTime = "";
+    var Solo = "";
+    var Duo = "";
+    var Squad = "";
 
-  }).catch(function(err) {
-    message.channel.send(err);
-  })
+    for(var currentStatIndex = 0; currentStatIndex < info.lifeTimeStats.length; currentStatIndex++) {
+        LifeTime += info.lifeTimeStats[currentStatIndex].key + ": " + info.lifeTimeStats[currentStatIndex].value + "\n";
+    }
+
+    for(var STATS in info.stats.p2){
+        Solo += info.stats.p2[STATS].label + ": " + info.stats.p2[STATS].displayValue + "\n";
+    }
+
+    for(var STATS_1 in info.stats.p10){
+        Duo += info.stats.p10[STATS_1].label + ": " + info.stats.p10[STATS_1].displayValue + "\n";
+    }
+
+    for(var STATS_2 in info.stats.p9){
+        Squad += info.stats.p9[STATS_2].label + ": " + info.stats.p9[STATS_2].displayValue + "\n";
+    }
+
+    message.channel.send("```" + "\n" +
+                         "----------------------------------" + "\n" + 
+                         "Account Username: " + info.epicUserHandle + "\n" +
+                         "Account Platform: " + info.platformNameLong + "\n" +
+                         "----------LIFETIME STATS----------" + "\n" + 
+                         LifeTime + "\n" +
+
+                         "------------SOLO STATS------------" + "\n" +
+                         Solo + "\n" +
+
+                         "------------DUO STATS-------------" + "\n" +
+                         Duo + "\n" +
+
+                         "------------SQUAD STATS-----------" + "\n" +
+                         Squad + "\n"+ "```");
+})
 }
 
 module.exports.help = {

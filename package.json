@@ -11,6 +11,7 @@
   "dependencies": {
     "chalk": "^2.2.0",
     "colors": "^1.1.2",
+    "csgo-market": "^1.5.2",
     "dankmemes": "^1.0.0",
     "discord.js": "^11.2.1",
     "find-youtube-urls": "0.0.2",
@@ -21,9 +22,11 @@
     "mysql": "^2.15.0",
     "opusscript": "0.0.3",
     "path": "^0.12.7",
+    "random-number-between": "^1.0.3",
     "random-url": "^1.0.0",
     "shuffle-array": "^1.0.1",
     "sleep-ms": "^2.0.1",
+    "steam-market-pricing": "^2.0.0",
     "steam-totp": "^2.0.1",
     "youtube-dl": "^1.12.2",
     "ytdl-core": "^0.17.1"

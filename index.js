@@ -14,9 +14,7 @@ const configJ       = require('./settingsConfig/ConfigJack.json');
 const configB       = require('./settingsConfig/ConfigBen.json');
 
 var settings        = './settingsConfig/settings.json';
-var file = require(settings)
-
-require('console-stamp')(console, '[HH:MM:ss]');
+var file            = require(settings)
 
 const TOKEN = file.TOKEN;
 const GreenStyle = chalk.green;
@@ -28,6 +26,37 @@ function generateXp() {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 
 }
+
+function GenerateHex(){
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+}
+
+function getDateTime() {
+
+  var date = new Date();
+
+  var hour = date.getHours();
+  hour = (hour < 10 ? "0" : "") + hour;
+
+  var min  = date.getMinutes();
+  min = (min < 10 ? "0" : "") + min;
+
+  var sec  = date.getSeconds();
+  sec = (sec < 10 ? "0" : "") + sec;
+
+  var year = date.getFullYear();
+
+  var month = date.getMonth() + 1;
+  month = (month < 10 ? "0" : "") + month;
+
+  var day  = date.getDate();
+  day = (day < 10 ? "0" : "") + day;
+
+  var Total_Time = day + "/" + month + "/" + year + " - " + hour + ":" + min + ":" + sec;
+
+  return Total_Time;
+  
+  }
 
 function play(connection, message){
     var server = servers[message.guild.id];
@@ -122,11 +151,16 @@ fs.readdir("./commands/", (err, files) => {
 })
 
 bot.on("guildMemberAdd", function(member) {
-  member.guild.channels.find("name", "general").send(member.toString() + " Welcome To The Comp Crew Official Server");
+  member.guild.channels.find("name", "general").send(member.toString() + ` Welcome to ${member.guild.name}`);
 
   member.addRole(member.guild.roles.find("name", "Members")).then(() => {
-    console.log(`${message.author.username}` + " joined and has been given The Member Role");
+    console.log("joined and has been given The Member Role");
   })
+});
+
+bot.on("guildMemberRemove", function(member){
+  member.guild.channels.find("name", "general").send(`Goodbye!` + member.toString());
+
 });
 
 bot.on("ready", async () => {
@@ -138,6 +172,13 @@ bot.on("ready", async () => {
   console.log(GreenStyle("Logging Woll Now Start...               "));
   console.log(GreenStyle("----------------------------------------"));
 
+  var channel = bot.channels.get("353164129021984778");
+
+  var ONLINE = new Discord.RichEmbed()
+      .addField("Online: ", getDateTime(),true)
+      .setColor(GenerateHex());
+  
+  channel.send(ONLINE);
 });
 
 var con = mysql.createConnection({
@@ -149,43 +190,50 @@ var con = mysql.createConnection({
 
 });
 
-con.connect(err => {
-  if(err) throw err;
-  console.log("Connected to database!");
-
-});
+// con.connect(err => {
+//   if(err) throw err;
+//   console.log(GreenStyle("Connected to database!"));
+  
+// });
 
 bot.on("message", async message => {
 
-  con.query(`SELECT * FROM xp WHERE id = '${message.author.id}'`, (err, rows) => {
-    if(err) throw err;
+//   var timer = setInterval(function () { 
+//     var TET = message.guild.roles.find("name", "Owner").setColor(GenerateHex()); //REPLACE OWNER WITH ROLE NAME
+//     var TET_1 = message.guild.roles.find("name", "ADMIN").setColor(GenerateHex()); //REPLACE/DELETE THIS LINE
+// }, 2000);
 
-    let sql;
+  if(message.author.bot) return;
 
-    if(rows.length < 1){
-      sql = `INSERT INTO xp (id, xp) VALUES ('${message.author.id}', ${generateXp()})`
-    } else{
-      let xp = rows[0].xp;
-      sql = `UPDATE xp SET xp = ${xp + generateXp()} WHERE id = '${message.author.id}'`;
-    }
+  // con.query(`SELECT * FROM xp WHERE id = '${message.author.id}'`, (err, rows) => {
+  //   if(err) throw err;
 
-    con.query(sql);
-  });
+  //   let sql;
 
-  con.query(`SELECT * FROM messagecount WHERE id = '${message.author.id}'`, (err, rows) => {
-    if(err) throw err;
+  //   if(rows.length < 1){
+  //     sql = `INSERT INTO xp (id, xp) VALUES ('${message.author.id}', ${generateXp()})`
+  //   } else{
+  //     let xp = rows[0].xp;
+  //     sql = `UPDATE xp SET xp = ${xp + generateXp()} WHERE id = '${message.author.id}'`;
+  //   }
 
-    let sql;
+  //   con.query(sql);
+  // });
 
-    if(rows.length < 1){
-      sql = `INSERT INTO messagecount (id, msgCnt) VALUES ('${message.author.id}', 1)` 
-    }else{
-      let msgcount = rows[0].msgCnt;
-      sql = `UPDATE messagecount SET msgCnt = ${msgcount + 1} WHERE id = '${message.author.id}'`;
-    }
+  // con.query(`SELECT * FROM messagecount WHERE id = '${message.author.id}'`, (err, rows) => {
+  //   if(err) throw err;
 
-    con.query(sql)
-  });
+  //   let sql;
+
+  //   if(rows.length < 1){
+  //     sql = `INSERT INTO messagecount (id, msgCnt) VALUES ('${message.author.id}', 1)` 
+  //   }else{
+  //     let msgcount = rows[0].msgCnt;
+  //     sql = `UPDATE messagecount SET msgCnt = ${msgcount + 1} WHERE id = '${message.author.id}'`;
+  //   }
+
+  //   con.query(sql)
+  // });
 
   var prefix = (file.prefix[message.guild.id] == undefined) ? file.prefix["default"] : file.prefix[message.guild.id];
 
@@ -193,16 +241,64 @@ bot.on("message", async message => {
     message.channel.send("The Preifx For this Server Is: " + prefix);
   }
 
-  if(!message.content.startsWith(prefix)) return;
-  if(message.author.bot) return;
+  if(message.content.toLowerCase().indexOf("dab") >= 0){
+    message.channel.send({files: [
+      {
+        attachment: 'images/DAB.jpeg',
+        name: "DAB.jpeg"
+      }
+    ]});
+  }
+  if(message.content.toLowerCase().indexOf("ree") >= 0){
+    message.channel.send({files: [
+      {
+        attachment: 'images/REE.gif',
+        name: "REE.gif"
+      }
+    ]});
+  }
+  if(message.content.toLowerCase().indexOf("??") >= 0){
+    message.channel.send({files: [
+      {
+        attachment: 'images/WHAT.png',
+        name: "WHAT.PNG"
+      }
+    ]});
+  }
+  if(message.content.toLowerCase().indexOf("oof") >= 0){
+    message.channel.send({files: [
+      {
+        attachment: 'images/OOF.png',
+        name: "OOF.png"
+      }
+    ]});
+  }
+  if(message.content.toLowerCase().indexOf("yeet") >= 0){
+    message.channel.send({files: [
+      {
+        attachment: 'images/YEET.png',
+        name: "YEET.png"
+      }
+    ]});
+  }
+  if(message.content.toLowerCase().indexOf("i mean") >= 0){
+    message.channel.send({files: [
+      {
+        attachment: 'images/MEAN.png',
+        name: "MEAN.png"
+      }
+    ]});
+  }
 
+  if(!message.content.startsWith(prefix)) return;
+  
   let messageArray = message.content.split(" ");
   let command = messageArray[0];
   let args = messageArray.slice(1);
   var args1 = message.content.substring(prefix.length).split(" ");
 
   let cmd = bot.commands.get(command.slice(prefix.length).toLowerCase());
-  if(cmd) cmd.run(bot, message, args, prefix, con);
+  if(cmd) cmd.run(bot, message, args, prefix, con, file);
 
   switch(args1[0].toLowerCase()) {
 

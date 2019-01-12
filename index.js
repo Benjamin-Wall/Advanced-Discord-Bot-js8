@@ -1,19 +1,16 @@
-var fs              = require('fs');
-const ms            = require('ms');
-var YTDL            = require('ytdl-core');
-var memes           = require('dankmemes');
-const chalk         = require('chalk');
-var getJSON         = require('get-json');
-const Discord       = require('discord.js');
-const SteamTotp     = require('steam-totp');
-const GoogleImages  = require('google-images');
-const mysql         = require('mysql');
-const Welcome       = require("discord-welcome");
-var settings        = './settingsConfig/settings.json';
-var file            = require(settings)
-
-const TOKEN = file.TOKEN;
-const GreenStyle = chalk.green;
+var fs                  = require('fs');
+const ms                = require('ms');
+var YTDL                = require('ytdl-core');
+var memes               = require('dankmemes');
+const chalk             = require('chalk');
+var getJSON             = require('get-json');
+const Discord           = require('discord.js');
+const SteamTotp         = require('steam-totp');
+const GoogleImages      = require('google-images');
+const mysql             = require('mysql');
+const Welcome           = require("discord-welcome");
+const settings          = require("./settingsConfig/settings.json");
+const GreenStyle        = chalk.green;
 
 function generateXp() {
   let min = 2;

@@ -49,13 +49,4 @@
   }
 }
    
-  },
-  "devDependencies": {},
-  "scripts": {
-    "start": "node index.js"
-  },
-  
-  "keywords": [],
-  "author": "@broomez420-[CFCC Core Dev]#6914",
-  
-}
+ 

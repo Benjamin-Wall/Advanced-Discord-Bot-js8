@@ -1,15 +1,29 @@
-var settings = '../settingsConfig/settings.json';
-var file = require(settings)
+const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
-  var prefix = (file.prefix[message.guild.id] == undefined) ? file.prefix["default"] : file.prefix[message.guild.id];
+    
+    
 
-  console.log(`${message.author.username}` + " " + "Used The Command " + prefix + "ping");
+    let msgping1 = new Date();
 
-  message.channel.send(message.author.toString() + " " + "Pong!");
+    let botping = new Date() - message.createdAt;
 
-}
+    let msgping2 = new Date() - msgping1;
+
+    let pingembed = new Discord.RichEmbed()
+        .setColor("RANDOM")
+        .addField('API Ping : ', Math.floor(bot.ping) + 'ms')
+        .addField('Bot Ping : ', Math.floor(botping) + 'ms')
+        .addField('Message Ping : ', '~' + Math.round(msgping2) + 'ms')
+        .setTimestamp(new Date())
+        .setFooter(`requested by ${message.author.tag}`);
+
+        
+    return message.channel.send(pingembed);
+        
+
+};
 
 module.exports.help = {
     name: "ping"
-}
+};

@@ -9,11 +9,6 @@ const SteamTotp     = require('steam-totp');
 const GoogleImages  = require('google-images');
 const mysql         = require('mysql');
 const Welcome       = require("discord-welcome");
-
-const configS       = require('./settingsConfig/ConfigSammy.json');
-const configJ       = require('./settingsConfig/ConfigJack.json');
-const configB       = require('./settingsConfig/ConfigBen.json');
-
 var settings        = './settingsConfig/settings.json';
 var file            = require(settings)
 

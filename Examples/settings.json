@@ -1,12 +1,11 @@
 {
   "prefix": {
-    "default": "m.",
-    "server1 id here": "b.",
-    "server2 id here": "tty."
+    "default": "!",
+    "server1 id here": "529006407144570905"
   },
-  "TOKEN": "LOL No Way",
+  "TOKEN": "process.env.BOT_TOKEN",
   "CSE": "LOL No Way",
   "API": "LOL No Way",
   "YT_API": "LOL No Way",
-  "BOT_ID": "LOL No Way"
+  "BOT_ID": "532212911146270721"
 }

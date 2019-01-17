@@ -1,23 +1,16 @@
-var fs              = require('fs');
-const ms            = require('ms');
-var YTDL            = require('ytdl-core');
-var memes           = require('dankmemes');
-const chalk         = require('chalk');
-var getJSON         = require('get-json');
-const Discord       = require('discord.js');
-const SteamTotp     = require('steam-totp');
-const GoogleImages  = require('google-images');
-const mysql         = require('mysql');
-
-const configS       = require('./settingsConfig/ConfigSammy.json');
-const configJ       = require('./settingsConfig/ConfigJack.json');
-const configB       = require('./settingsConfig/ConfigBen.json');
-
-var settings        = './settingsConfig/settings.json';
-var file            = require(settings)
-
-const TOKEN = file.TOKEN;
-const GreenStyle = chalk.green;
+var fs                  = require('fs');
+const ms                = require('ms');
+var YTDL                = require('ytdl-core');
+var memes               = require('dankmemes');
+const chalk             = require('chalk');
+var getJSON             = require('get-json');
+const Discord           = require('discord.js');
+const SteamTotp         = require('steam-totp');
+const GoogleImages      = require('google-images');
+const mysql             = require('mysql');
+const Welcome           = require("discord-welcome");
+const settings          = require("./settingsConfig/settings.json");
+const GreenStyle        = chalk.green;
 
 function generateXp() {
   let min = 2;
@@ -150,18 +143,69 @@ fs.readdir("./commands/", (err, files) => {
 
 })
 
-bot.on("guildMemberAdd", function(member) {
-  member.guild.channels.find("name", "general").send(member.toString() + ` Welcome to ${member.guild.name}`);
+// welcome member message module
+bot.on('guildMemberAdd', member => {
+  let channel = member.guild.channels.find('name', 'welcome');
+  let memberavatar = member.user.avatarURL
+      if (!channel) return;
+      let embed = new Discord.RichEmbed()
+      .setColor('RANDOM')
+      .setThumbnail(memberavatar)
+      .addField(':bust_in_silhouette: | name : ', `${member}`)
+      .addField(':microphone2: | Welcome!', `Welcome to the server, ${member}`)
+      .addField(':id: | User :', "**[" + `${member.id}` + "]**")
+      .addField(':family_mwgb: | Your are the newest member', `${member.guild.memberCount}`)
+      .addField("Name", `<@` + `${member.id}` + `>`, true)
+      .addField('Server', `${member.guild.name}`, true )
+      .setFooter(`**${member.guild.name}**`)
+      .setTimestamp()
 
-  member.addRole(member.guild.roles.find("name", "Members")).then(() => {
-    console.log("joined and has been given The Member Role");
-  })
+      channel.sendEmbed(embed);
 });
 
-bot.on("guildMemberRemove", function(member){
-  member.guild.channels.find("name", "general").send(`Goodbye!` + member.toString());
+bot.on('guildMemberAdd', member => {
+
+  console.log(`${member}`, "has joined" + `${member.guild.name}`)
 
 });
+
+
+// leave member message module
+bot.on('guildMemberRemove', member => {
+  let channel = member.guild.channels.find('name', 'leave');
+  let memberavatar = member.user.avatarURL
+      if (!channel) return;
+      let embed = new Discord.RichEmbed()
+      .setColor('RANDOM')
+      .setThumbnail(memberavatar)
+      .addField('Name:', `${member}`)
+      .addField('Has Let the Server', ';(')
+      .addField('Bye Bye :(', 'We will all miss you!')
+      .addField('The server now has', `${member.guild.memberCount}` + " members")
+      .setFooter(`**${member.guild.name}`)
+      .setTimestamp()
+
+      channel.sendEmbed(embed);
+});
+
+// leave member DM message module
+bot.on('guildMemberRemove', member => {
+  console.log(`${member}` + "has left " + `${member.guild.name}` + " Sending leave message now")
+  console.log("Leave Message Sent")
+});
+  
+
+bot.on("message", async message => {
+// bot dm module
+  if(message.author.bot) return;
+  if(message.channel.type === "dm") return;
+//custom prefix module
+  let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8"));
+  if(!prefixes[message.guild.id]){
+    prefixes[message.guild.id] = {
+      prefixes: botconfig.prefix
+    };
+  }
 
 bot.on("ready", async () => {
 
@@ -169,7 +213,7 @@ bot.on("ready", async () => {
   console.log(GreenStyle("                BOT PAGE                "));
   console.log(GreenStyle("             BOT NOW ACTIVE             "));
   console.log(GreenStyle("----------------------------------------"));
-  console.log(GreenStyle("Logging Woll Now Start...               "));
+  console.log(GreenStyle("Logging Will Now Start...               "));
   console.log(GreenStyle("----------------------------------------"));
 
   var channel = bot.channels.get("353164129021984778");
@@ -501,4 +545,4 @@ bot.on("message", async message => {
   }
 });
 
-bot.login(TOKEN);
+bot.login(process.env.BOT_TOKEN);
